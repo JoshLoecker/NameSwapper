@@ -1,7 +1,8 @@
 name: Release
 on:
-  release:
-    types: [ published ]
+  push:
+    tags:
+      - "v*.*.*"
 
 jobs:
   pyinstaller-build:
@@ -31,7 +32,8 @@ jobs:
           uv run pyinstaller --onefile --windowed --name "NameSwapper" --noconfirm src/nameswapper/main.py
 
       - name: Add to Release
-        uses: actions/upload-artifact@v4
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          path: "build/*"
+          files: "dist/*"
 
