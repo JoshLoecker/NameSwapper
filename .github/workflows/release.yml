@@ -22,5 +22,6 @@ jobs:
           python_ver: "${{ matrix.python-version }}"
           requirements: 'pyproject.toml'
           upload_exe_with_name: 'NameSwapper'
+          spec: "src/nameswapper/main.py"
           options: --onefile, --windowed, --name "NameSwapper"
 
