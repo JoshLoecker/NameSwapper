@@ -15,9 +15,9 @@ jobs:
     strategy:
       matrix:
         python-version: [ "3.13" ]
-        os: [ ubuntu-latest, macos-latest, windows-latest ]
+        os: [ ubuntu, macos, windows ]
 
-    runs-on: "${{ matrix.os }}"
+    runs-on: "${{ matrix.os }}-latest"
 
     steps:
       - name: Checkout Repository
@@ -35,7 +35,7 @@ jobs:
 
       - name: Create Executable
         run: |
-          uv run pyinstaller --onefile --windowed --name "NameSwapper" --noconfirm src/nameswapper/main.py
+          uv run pyinstaller --onefile --windowed --name "NameSwapper-${{ matrix.os }}" --noconfirm src/nameswapper/main.py
 
       - name: Add to Release
         uses: softprops/action-gh-release@v2
