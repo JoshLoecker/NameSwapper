@@ -34,13 +34,13 @@ jobs:
         run: uv sync --python "${{ matrix.python-version }}" --dev
 
       - name: Create Executable
-        run: |
-          uv run pyinstaller --onefile --windowed --name "NameSwapper-${{ matrix.os }}" --noconfirm src/nameswapper/main.py
+        run: uv run pyinstaller --onefile --windowed --name NameSwapper --noconfirm src/nameswapper/main.py
 
       - name: Add to Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: "dist/*"
+          files: 'dist/NameSwapper*'
           token: '${{ github.token }}'
+          name: "NameSwapper-${{ matrix.os }}"
 
